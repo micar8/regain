@@ -33,7 +33,7 @@ ADD context.xml /usr/local/tomcat/webapps/host-manager/META-INF/context.xml
 #RUN systemctl start tomcat
 #RUN systemctl enable tomcat
 
-RUN ufw allow 8888
+#RUN ufw allow 8888
 
 EXPOSE 8888
 
