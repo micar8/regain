@@ -18,8 +18,8 @@ RUN apt install -y default-jdk
 # INSTALL tomcat
 RUN cd /tmp
 RUN wget -V
-RUN wget http://dlcdn.apache.org/tomcat/tomcat-8/v8.5.84/bin/apache-tomcat-8.5.84.tar.gz
-RUN tar xzvf apache-tomcat-10*tar.gz -C /opt/tomcat --strip-components=1
+RUN curl http://dlcdn.apache.org/tomcat/tomcat-8/v8.5.84/bin/apache-tomcat-8.5.84.tar.gz --output apache-tomcat-8.5.84.tar.gz
+RUN tar xzvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 RUN chown -R tomcat:tomcat /opt/tomcat/
 RUN chmod -R u+x /opt/tomcat/bin
 
