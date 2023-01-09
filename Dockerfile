@@ -29,6 +29,9 @@ ADD context.xml /usr/local/tomcat/webapps/host-manager/META-INF/context.xml
 
 # Tomcat Service
 ADD tomcat.service /etc/systemd/system/tomcat.service
+RUN systemctl daemon-reload
+RUN systemctl start tomcat
+RUN systemctl enable tomcat
 
 RUN ufw allow 8888
 
