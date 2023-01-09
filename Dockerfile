@@ -12,8 +12,8 @@ RUN useradd -m -d /opt/tomcat -U -s /bin/false tomcat
 # Packages
 #RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN apt-get -qq update && apt-get -y upgrade
-#RUN apt install default-jdk
-RUN apt install java-1.11.0-openjdk-amd64
+RUN apt install default-jdk
+#RUN apt install java-1.11.0-openjdk-amd64
 
 # INSTALL tomcat
 RUN cd /tmp
