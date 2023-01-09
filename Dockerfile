@@ -25,57 +25,16 @@ RUN chmod -R u+x /opt/tomcat/bin
 ADD tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 ADD context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml
 
-RUN service mysql restart
 
-# Expose the mysql port
-EXPOSE 3306
+RUN ufw allow 8888
 
-# ADD APACHE
-# Run the rest of the commands as the ``root`` user
-USER root
-
-#RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/run/sshd
-
-# SET Servername to localhost
-#RUN echo "ServerName localhost" >> /etc/apache2/conf-available/servername.conf
-#RUN a2enconf servername
-
-# Manually set up the apache environment variables
-#ENV APACHE_RUN_USER www-data
-#ENV APACHE_RUN_GROUP www-data
-#ENV APACHE_LOG_DIR /var/log/apache2
-#ENV APACHE_LOCK_DIR /var/lock/apache2
-#ENV APACHE_PID_FILE /var/run/apache2.pid
- 
-#RUN chown -R www-data:www-data /var/www
-#RUN chmod u+rwx,g+rx,o+rx /var/www
-#RUN find /var/www -type d -exec chmod u+rwx,g+rx,o+rx {} +
-#RUN find /var/www -type f -exec chmod u+rw,g+rw,o+r {} +
-
-RUN ufw allow 80
-RUN ufw allow 8080
-
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8888
 
 # And add changes to ``/etc/alternatives/my.cnf``
-RUN sed -ri "$a[client]" "/etc/alternatives/my.cnf"
-RUN sed -ri "$aport=3306" "/etc/alternatives/my.cnf"
-RUN sed -ri "$asocket=/tmp/mysql.sock" "/etc/alternatives/my.cnf"
-RUN sed -ri "$a[mysqld]" "/etc/alternatives/my.cnf"
-RUN sed -ri "$aport=3306" "/etc/alternatives/my.cnf"
-RUN sed -ri "$asocket=/tmp/mysql.sock" "/etc/alternatives/my.cnf"
-RUN sed -ri "$akey_buffer_size=16M" "/etc/alternatives/my.cnf"
-RUN sed -ri "$amax_allowed_packet=8M" "/etc/alternatives/my.cnf"
-RUN sed -ri "$asql-mode=NO_ENGINE_SUBSTITUTION" "/etc/alternatives/my.cnf"
-RUN sed -ri "$a[mysqldump]" "/etc/alternatives/my.cnf"
-RUN sed -ri "$aquick" "/etc/alternatives/my.cnf"
- 
-# Update the default apache site with the config we created.
-#ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+#RUN sed -ri "$a[client]" "/etc/alternatives/my.cnf"
  
 # Add VOLUMEs to allow backup of config, logs and databases
-VOLUME  ["/var/www/html/nubuilder4", "/home"]
+VOLUME  ["/usr/local/tomcat/webapps"]
 
 # Scripts
 #ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
