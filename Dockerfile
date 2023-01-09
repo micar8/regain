@@ -7,7 +7,7 @@ FROM ubuntu:20.04
 #ENV ...
 
 # add unprivileged tomcat user
-RUN useradd -m -d /opt/tomcat -U -s /bin/false tomcat
+#RUN useradd -m -d /opt/tomcat -U -s /bin/false tomcat
 
 # Packages
 #RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -19,8 +19,8 @@ RUN apt install -y default-jdk
 RUN cd /tmp \
     wget http://dlcdn.apache.org/tomcat/tomcat-8/v8.5.84/bin/apache-tomcat-8.5.84.tar.gz \
     tar xzvf apache-tomcat-8.5.84.tar.gz -C /opt/tomcat --strip-components=1
-RUN chown -R tomcat:tomcat /opt/tomcat/
-RUN chmod -R u+x /opt/tomcat/bin
+#RUN chown -R tomcat:tomcat /opt/tomcat/
+#RUN chmod -R u+x /opt/tomcat/bin
 
 # CONFIG tomcat
 ADD tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
