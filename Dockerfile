@@ -22,10 +22,8 @@ RUN chown -R tomcat:tomcat /opt/tomcat/
 RUN chmod -R u+x /opt/tomcat/bin
 
 # CONFIG tomcat
-RUN mysql -u root -p &&\
-    CREATE DATABASE nubuilder4; &&\
-    quit
-RUN mysql -u root -p nubuilder4 < ./nubuilder4.sql
+ADD tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
+ADD context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml
 
 RUN service mysql restart
 
@@ -85,5 +83,5 @@ VOLUME  ["/var/www/html/nubuilder4", "/home"]
 #ADD start.sh /usr/local/bin/start.sh
 #RUN chmod +x /usr/local/bin/*.sh
 
-# By default, simply start apache.
-#CMD ["/usr/local/bin/start.sh"]
+# By default, simply start tomcat.
+CMD ["catalina.sh", "run"]
