@@ -16,9 +16,8 @@ RUN apt install -y default-jdk
 #RUN apt install java-1.11.0-openjdk-amd64
 
 # INSTALL tomcat
-RUN cd /tmp
-#RUN wget -V
-RUN curl http://dlcdn.apache.org/tomcat/tomcat-8/v8.5.84/bin/apache-tomcat-8.5.84.tar.gz --remote-name
+RUN cd /tmp \
+    wget http://dlcdn.apache.org/tomcat/tomcat-8/v8.5.84/bin/apache-tomcat-8.5.84.tar.gz
 RUN tar xzvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 RUN chown -R tomcat:tomcat /opt/tomcat/
 RUN chmod -R u+x /opt/tomcat/bin
