@@ -24,6 +24,8 @@ RUN chmod -R u+x /opt/tomcat/bin
 # CONFIG tomcat
 ADD tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 ADD context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml
+ADD context.xml /usr/local/tomcat/webapps/host-manager/META-INF/context.xml
+
 
 
 RUN ufw allow 8888
