@@ -12,7 +12,8 @@ RUN useradd -m -d /opt/tomcat -U -s /bin/false tomcat
 # Packages
 #RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN apt-get -qq update && apt-get -y upgrade
-RUN sudo apt install default-jdk
+#RUN apt install default-jdk
+RUN apt install java-1.11.0-openjdk-amd64
 
 # INSTALL tomcat
 RUN cd /tmp
@@ -26,7 +27,8 @@ ADD tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 ADD context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml
 ADD context.xml /usr/local/tomcat/webapps/host-manager/META-INF/context.xml
 
-
+# Tomcat Service
+ADD tomcat.service /etc/systemd/system/tomcat.service
 
 RUN ufw allow 8888
 
