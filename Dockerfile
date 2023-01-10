@@ -49,5 +49,11 @@ VOLUME  ["/usr/local/tomcat/webapps"]
 #ADD start.sh /usr/local/bin/start.sh
 #RUN chmod +x /usr/local/bin/*.sh
 
+
+ADD start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/*.sh
+
+# By default, simply start apache.
+CMD ["/usr/local/bin/start.sh"]
 # By default, simply start tomcat.
 CMD ["catalina.sh", "run"]
