@@ -13,6 +13,7 @@ FROM ubuntu:20.04
 #RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN apt-get -qq update && apt-get -y upgrade
 RUN apt install -y default-jdk
+RUN DEBIAN_FRONTEND=noninteractive apt-get install supervisor
 #RUN apt install java-1.11.0-openjdk-amd64
 
 # INSTALL tomcat
@@ -49,11 +50,11 @@ VOLUME  ["/usr/local/tomcat/webapps"]
 #ADD start.sh /usr/local/bin/start.sh
 #RUN chmod +x /usr/local/bin/*.sh
 
-
+ADD supervisord-tomcat.conf /etc/supervisor/conf.d/supervisord-tomcat.conf
 ADD start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/*.sh
 
-# By default, simply start apache.
+# By default, simply start supervisor-scripts
 CMD ["/usr/local/bin/start.sh"]
-# By default, simply start tomcat.
-CMD ["catalina.sh", "run"]
+# By default, simply start tomcat
+#CMD ["catalina.sh", "run"]
